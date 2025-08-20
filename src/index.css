@@ -1,68 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    font-family: var(--font-family-sans);
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+    /* Fonts */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    --font-family-serif: "Taviraj", serif;
+    --font-family-sans: "DM Sans", sans-serif;
+    --font-family-extra: "MuseoModerno", sans-serif;
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
+    /* Color Palette */
 
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
+    --white: #FFFFFF;
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
+    --black: #000000;
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+    --yellow-50: #FDE2B0;
+    --yellow-100: #FCDB9C;
+    --yellow-200: #FBD388;
+    --yellow-300: #FACC75;
+    --yellow-400: #F9C462;
+    --yellow-500: #F9BD4E;
+    --yellow-600: #F8B53A;
+    --yellow-700: #F7AE26;
+    --yellow-800: #F6A713;
+    --yellow-900: #EC9D09;
+    --yellow-950: #EC9D09;
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+    --darkRed-50: #F2502C;
+    --darkRed-100: #F04019;
+    --darkRed-200: #E6360F;
+    --darkRed-300: #D3320D;
+    --darkRed-400: #C02D0C;
+    --darkRed-500: #AD290B;
+    --darkRed-600: #99240A;
+    --darkRed-700: #862009;
+    --darkRed-800: #721B08;
+    --darkRed-900: #5F1707;
+    --darkRed-950: #4C1306;
+
+    --lightRed-50: #FCCAC5;
+    --lightRed-100: #FBB8B1;
+    --lightRed-200: #FAA79E;
+    --lightRed-300: #F9968B;
+    --lightRed-400: #F88477;
+    --lightRed-500: #F77364;
+    --lightRed-600: #F66151;
+    --lightRed-700: #F5503D;
+    --lightRed-800: #F43E2A;
+    --lightRed-900: #F32C16;
+    --lightRed-950: #E9220C;
+
+    --lightGray-50: #F5F5F5;
+    --lightGray-100: #EBEBEB;
+    --lightGray-200: #E0E0E0;
+    --lightGray-300: #D6D6D6;
+    --lightGray-400: #CCCCCC;
+    --lightGray-500: #C2C2C2;
+    --lightGray-600: #B8B8B8;
+    --lightGray-700: #ADADAD;
+    --lightGray-800: #A3A3A3;
+    --lightGray-900: #999999;
+    --lightGray-950: #8F8F8F;
+
+    --darkGray-50: #7A8D90;
+    --darkGray-100: #6F8285;
+    --darkGray-200: #66787A;
+    --darkGray-300: #5D6D6F;
+    --darkGray-400: #546264;
+    --darkGray-500: #4A5759;
+    --darkGray-600: #414C4E;
+    --darkGray-700: #384143;
+    --darkGray-800: #2E3638;
+    --darkGray-900: #252B2D;
+    --darkGray-950: #1C2022;
+
 }

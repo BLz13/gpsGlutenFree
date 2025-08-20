@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Baumans&family=Faculty+Glyphic&family=Happy+Monkey&family=Monoton&family=Reem+Kufi+Fun:wght@400..700&family=Sour+Gummy:ital,wght@0,100..900;1,100..900&family=Train+One&family=Zain:ital,wght@0,200;0,300;0,400;0,700;0,800;0,900;1,300;1,400&family=Zen+Tokyo+Zoo&display=swap');
+
+:root {
+    --f1: "Zain";
+    --f2: "Reem Kufi Fun";
+    --f3: "Train One";
+    --f4: "Faculty Glyphic";
+    --f5: "Monoton";
+    --f6: "Zen Tokyo Zoo";
+    --f7: "Happy Monkey";
+    --f8: "Sour Gummy";
+    --f9: "Bagel Fat One";
+    --f10: "Baumans";
+}
+
+.menu {
+    position: fixed;
+    background: white;
+    transition: all 500ms;
+    top: 0;
+    right: 0;
+    height: 99.99vh;
+    width: 75vw;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+}
+
+.menu.closed {
+    transform: translateX(75vw);
+    opacity: 0;
+}
+
+.menu.open {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.menu ul {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-end;
+    justify-content: center;
+    list-style: none;
+    padding: 0 30px;
+    margin: 0;
+    gap: 30px;
+    height: 100%;
+    width: calc(100% - 60px); /* full width - padding */
+}
+
+.menu li {
+    list-style: none;
+    text-align: end;
+    width: 30%;
+}
+
+.menu .logo-container {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: end;
+    justify-content: center;
+    text-align: end;
+    font-family: var(--f10);
+    font-size: 2rem;
+    width: 100%;
+    gap: 20px;
+}
+
+.logo-menu {
+    display: flex;
+    align-items: end;
+    height: auto;
+    width: 30%;
+}
