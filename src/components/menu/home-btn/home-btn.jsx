@@ -1,6 +1,6 @@
-import './menu-button.css';
+import './home-btn.scss';
 
-import MenuIcon from '../../assets/menuIcon.svg?react';
+import MenuIcon from '../../../assets/svg/menuIcon.svg?react';
 
 export default function MenuButton({ toggleMenu, menuState }) {
 
@@ -13,7 +13,7 @@ export default function MenuButton({ toggleMenu, menuState }) {
 
   return (
     <>
-      <button className="menu-button-container" onClick={handleClick} onTouchStart={handleClick}>
+      <button className={`menu-button-container ${buttonClass}`} onClick={handleClick} onTouchStart={handleClick}>
         <MenuIcon className={`menu-button ${buttonClass}`} />
       </button>
     </>

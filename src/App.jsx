@@ -1,27 +1,24 @@
-import './App.css'
+import Location from './components/location/location'
+import LocationSelectors from './components/location-selector/selectors'
+import Map from './components/map/map'
+import Menu from './components/menu/menu-cnt'
+import { useCoordinates } from './hooks/location/useCoordinates';
+import { useLocation } from './hooks/location/useLocation';
 
-import Map from './components/map'
-import Menu from './components/menu-container/menu'
-import MenuButton from './components/menu-button/menu-button'
-import { useState } from 'react';
+export default function App() {
 
-function App() {
+  const { coords } = useCoordinates();
+  const { location } = useLocation(coords);
 
+  console.log(coords);
+  console.log(location);
 
-  const [menuState, setMenu] = useState(false);
-
-  const toggleMenu = () => {
-    setMenu(prevState => !prevState);
-  };
-
-    return(
-      <>
-        <MenuButton toggleMenu={toggleMenu} menuState={menuState} />
-        <Menu menuState={menuState} />
-        <Map />
-      </>
-    )
-
+  return (
+    <>
+      <Location location={location} />
+      <LocationSelectors location={location} />
+      <Menu />
+      <Map location={location} />
+    </>
+  );
 }
-
-export default App

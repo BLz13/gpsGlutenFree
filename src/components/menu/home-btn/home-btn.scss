@@ -1,0 +1,106 @@
+@use '../../../styles/colors.scss' as *;
+@use '../../../styles/fonts.scss' as *;
+
+
+.menu-button-container {
+
+    cursor: pointer;
+    position: absolute;
+    transition: all 500ms;
+    top: 2dvh;
+    right: 5vw;
+    z-index: 100;
+    padding: 0;
+    height: 35px;
+    width: 35px;
+
+    .menu-button{
+
+        height: 100%;
+        width: 100%;
+        border-radius: 50px;
+        transition: all 500ms;
+        background: $darkRed700;
+        border: 2px solid $darkRed700;
+
+        *{
+            transition: all 500ms;
+            position: relative;
+        }
+
+        #up,
+        #down,
+        #middle {
+            stroke: $white;
+        }
+
+        #cross{
+            transform-origin: 50% 50%;
+            transform: scale(1.5) rotate(-55deg);
+            z-index: 2;
+        }
+
+        #wheat {
+
+            transform: scale(1.3) rotate(45deg);
+            transform-origin: 50% 50%;
+            z-index: 1;
+
+            *{
+                fill: $white;
+            }
+
+        }
+
+    }
+
+    .menu-button.open{
+
+        background: none;
+        border: none;
+
+        #up,
+        #down,
+        #middle {
+            opacity: 0;
+        }
+
+        #cross{
+            transform: scale(1.5) rotate(-55deg);
+            stroke: $white;
+        }
+
+        #wheat{
+            opacity: 1;
+            transform: scale(1.3) rotate(45deg);
+        }
+
+    }
+
+    .menu-button.closed {
+
+        #up,
+        #down,
+        #middle {
+            opacity: 1;
+        }
+
+        #cross{
+            opacity: 0;
+        }
+
+        #wheat{
+            opacity: 0;
+        }
+
+    }
+
+}
+
+.menu-button-container.open{
+    right: 62.5vw;
+}
+
+.menu-button-container:focus {
+    outline: none;
+}

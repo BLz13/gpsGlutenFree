@@ -1,0 +1,1 @@
+export const INDEC_API_ADDRESS = 'https://apis.datos.gob.ar/georef/api/'

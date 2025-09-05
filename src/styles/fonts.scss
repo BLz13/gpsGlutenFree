@@ -1,0 +1,47 @@
+/* Fonts */
+
+$font-serif: "Taviraj", serif;
+$font-sans: "DM Sans", sans-serif;
+$font-extra: "Dosis", sans-serif;
+
+h1 {
+    font-family: $font-serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-family: $font-serif;
+    font-size: 2rem;
+    font-weight: 900;
+}
+
+h3 {
+    font-family: $font-serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+h4 {
+    font-family: $font-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.large {
+    font-family: $font-sans;
+    font-size: 1.2rem;
+    font-weight: 400;
+}
+
+.medium {
+    font-family: $font-sans;
+    font-size: 1rem;
+    font-weight: 300;
+}
+
+small {
+    font-family: $font-sans;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
