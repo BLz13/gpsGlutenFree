@@ -1,41 +1,38 @@
-import 'leaflet/dist/leaflet.css';
-import 'leaflet/dist/leaflet.js';
 import './map.scss'
+import 'maplibre-gl/dist/maplibre-gl.css';
 
-import { MapContainer, Marker, Popup, TileLayer, useMap } from 'react-leaflet';
+import { useEffect, useState } from 'react';
+
+import { Map as MapObject } from '@vis.gl/react-maplibre';
 
 export default function Map({ location }) {
-  
-  // Default coordinates (Santa Rosa, La Pampa)
-  const defaultPosition = location ? location.parameters : { lat: -36.6167, lng: -64.2833 };
 
-  // Check if we have valid location parameters
-  const hasValidLocation = location?.parameters?.lat && location?.parameters?.lng;
-  
-  // Use user location if available, otherwise use default
-  const position = hasValidLocation ? (
-    [location.parameters.lat, location.parameters.lng]
-  ) : (
-    defaultPosition
+  const [zoom, setZoom] = useState(3.5);
+
+  const [params, setParams] = useState(
+    location ? location.parameters : { lat: -38.5546, lng: -62.8565 }
   );
 
-  function MyComponent() {
-    const map = useMap()
-    console.log('map center:', map.getCenter())
-    return null
-  }
+  useEffect(() => {
+    if (location) {
+      setParams(location);
+      setZoom(10);
+    }
+  }, [location]);
 
   return (
 
     <div className="map-container">
 
-      <MapContainer 
-        center={position} 
-        zoom={hasValidLocation ? 13 : 5} 
+      <MapObject
+        initialViewState={{
+          longitude: params.lng,
+          latitude: params.lat,
+          zoom: zoom
+        }}
         style={{ height: '100vh', width: '100vw', zIndex: 0 }}
-      >
-        <TileLayer />
-      </MapContainer>
+        mapStyle="https://api.maptiler.com/maps/01991bfc-3e57-74a4-a9d1-7b249a95b36e/style.json?key=Pf87ayOuyYEaDsy5Ko7D"
+      />
       
     </div>
 
