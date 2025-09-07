@@ -1,5 +1,38 @@
+@use '../../styles/colors.scss' as *;
+@use '../../styles/fonts.scss' as *;
+
 .location-selector-cnt {
+
     position: fixed;
-    top: 15dvh;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    top: calc(4dvh + 38.2px);
+    width: calc(72.5dvw + 10px);
     z-index: 2;
+    left: 2.5vw;
+    gap: 10px;
+
+    * {
+        font-size: 0.8rem;
+        line-height: 0.8rem;
+        width: 100%;
+        height: 38.2px;
+        padding: 0px 5dvw;
+        border-radius: 50px;
+        color: $white;
+        background-color: $darkRed700;
+    }
+
+    &.close{
+        display: none;
+    }
+
+    &.open {
+        display: flex;
+    }
+
+
+
 }
