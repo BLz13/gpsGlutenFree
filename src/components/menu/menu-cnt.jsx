@@ -4,7 +4,7 @@ import MenuButton from './home-btn/home-btn';
 import MenuItems from "./menu-items/menu-items";
 import { useState } from 'react';
 
-export default function Menu() {
+export default function Menu({ closeLocationFilter }) {
 
   const [menuState, setMenu] = useState(false);
 
@@ -20,13 +20,23 @@ export default function Menu() {
 
   return (
     <>
+
       <nav className={`menu-container ${menuClass}`}>
-        <MenuButton toggleMenu={toggleMenu} menuState={menuState} />
+
+        <MenuButton
+          toggleMenu={toggleMenu}
+          menuState={menuState}
+          closeLocationFilter={closeLocationFilter}
+        />
+
         <ul className={`menu ${menuClass}`}>
           <MenuItems />
         </ul>
+
         <div  onClick={closeMenu} onTouchEnd={closeMenu} className="menu-backdrop"></div>
+
       </nav>
+
     </>
   )
 

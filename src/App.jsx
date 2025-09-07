@@ -23,10 +23,6 @@ export default function App() {
 
   const locationFilterClass = locationFilterState ? "open" : "closed";
 
-  console.log('App component - coords:', coords);
-  console.log('App component - location:', location);
-  console.log('App component - locationFilterState:', locationFilterState);
-
   return (
     <>
 
@@ -37,12 +33,14 @@ export default function App() {
       />
 
       <LocationSelectors
+        location={location}
         locationFilterClass={locationFilterClass}
-        locationFilterState={locationFilterState}
         closeLocationFilter={closeLocationFilter}
       />
       
-      <Menu />
+      <Menu
+        closeLocationFilter={closeLocationFilter}
+      />
       
       <Map location={location} />
 

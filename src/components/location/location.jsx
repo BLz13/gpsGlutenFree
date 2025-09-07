@@ -8,7 +8,6 @@ export default function Location({ location, toggleLocationFilter, locationFilte
     
     useEffect(() => {
         setUbicacion(location);
-        console.log('Rendering Location with location:', location);
     }, [location]);
 
     const handleClick = () => {
@@ -22,10 +21,10 @@ export default function Location({ location, toggleLocationFilter, locationFilte
             ) : (
                 <>
                     <h2 className='main-location'>
-                        {`${ubicacion.departamento.nombre}, ${ubicacion.municipio.nombre},`}
+                        {`${ubicacion.departamento.nombre}`}
                     </h2>
                     <h3 className='secondary-location'>
-                        {`${ubicacion.provincia.nombre}, Argentina`}
+                        {`${ubicacion.municipio.nombre}, ${ubicacion.provincia.nombre}`}
                     </h3>
                 </>
             )}

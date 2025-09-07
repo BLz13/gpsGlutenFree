@@ -39,6 +39,8 @@ export const useLocation = ( coords ) => {
         
     }, [coords]);
 
+    console.log('useLocation hook - coords:', coords);
+
     return {
         location,
         loading,

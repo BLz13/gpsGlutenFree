@@ -90,6 +90,8 @@ export const useCoordinates = () => {
 
   }, []);
 
+  console.log('useCoordinates hook - coords:', coords);
+
   return {
     coords, // Will always have either user location or Santa Rosa coordinates
     error,

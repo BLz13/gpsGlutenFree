@@ -8,31 +8,80 @@
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    transition: transform 500ms, opacity 500ms;
     top: calc(4dvh + 38.2px);
-    width: calc(72.5dvw + 10px);
+    width: calc(72.5dvw + 5dvw *2);
     z-index: 2;
     left: 2.5vw;
     gap: 10px;
 
-    * {
+    &.closed{
+
+        opacity: 0;
+
+        $distance: calc(-38.2px - 2dvh);
+
+
+        .provinces-selector {
+            transform: translateY($distance);
+        }
+
+        .municipalities-selector {
+            transform: translateY(calc(($distance + 10px) * 2));
+        }
+
+        .cities-selector {
+            transform: translateY(calc(($distance + 10px) * 3));
+        }
+
+        .backdrop-location-selector {
+            pointer-events: none;
+            z-index: -2;
+        }
+
+    }
+
+    &.open {
+
+        opacity: 1;
+
+        .provinces-selector,
+        .municipalities-selector,
+        .cities-selector {
+            transform: translateY(0);
+        }
+
+        .backdrop-location-selector {
+            pointer-events: auto;
+            z-index: 1;
+        }
+
+    }
+
+    .provinces-selector,
+    .municipalities-selector,
+    .cities-selector {
+
         font-size: 0.8rem;
         line-height: 0.8rem;
         width: 100%;
         height: 38.2px;
         padding: 0px 5dvw;
         border-radius: 50px;
+        transition: transform 500ms;
+        z-index: 2;
         color: $white;
         background-color: $darkRed700;
+        
     }
 
-    &.close{
-        display: none;
+    .backdrop-location-selector {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100dvw;
+        height: 100dvh;
+        background-color: rgba(0, 0, 0, 0.5);
     }
-
-    &.open {
-        display: flex;
-    }
-
-
 
 }
