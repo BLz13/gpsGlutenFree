@@ -1,24 +1,34 @@
 import './location.scss';
 
-export default function Location({ location, loading }) {
+import { useEffect, useState } from 'react';
 
-    if (loading) return <div>Loading location...</div>;
+export default function Location({ location, toggleLocationFilter, locationFilterState }) {
 
-    if (!location || !location.ubicacion?.departamento) {
-        return (
-            <div className="location">
-                <h2>Argentina</h2>
-            </div>
-        );
-    }
+    const [ubicacion, setUbicacion] = useState(location);
+    
+    useEffect(() => {
+        setUbicacion(location);
+        console.log('Rendering Location with location:', location);
+    }, [location]);
+
+    const handleClick = () => {
+        toggleLocationFilter(!locationFilterState);
+    };
 
     return (
-        <div className="location">
-            <h2>{location.ubicacion.departamento}</h2>
+        <div className="location" onClick={handleClick} onTouchEnd={handleClick}>
+            {!ubicacion ? (
+                <h2 className='main-location'>Argentina</h2>
+            ) : (
+                <>
+                    <h2 className='main-location'>
+                        {`${ubicacion.departamento.nombre}, ${ubicacion.municipio.nombre},`}
+                    </h2>
+                    <h3 className='secondary-location'>
+                        {`${ubicacion.provincia.nombre}, Argentina`}
+                    </h3>
+                </>
+            )}
         </div>
     );
-    
 }
-
-
-

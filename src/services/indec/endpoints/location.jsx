@@ -2,8 +2,6 @@ import { INDEC_API_ADDRESS as apiAdrs } from '../api';
 
 export const fetchLocation = async ({ latitude, longitude }) => {
 
-  console.log('Fetching location for coords:', { latitude, longitude });
-
   try {
 
     const response = await fetch(`${apiAdrs}ubicacion?lat=${latitude}&lon=${longitude}`);

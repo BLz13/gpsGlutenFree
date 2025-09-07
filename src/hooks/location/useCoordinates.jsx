@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import { useEffect, useState } from 'react';
 
 export const useCoordinates = () => {
+  
   // Default coordinates for Santa Rosa, La Pampa
   const defaultCoords = {
     latitude: -36.6167,
-    longitude: -64.2833,
-    accuracy: null,
-    source: 'default'
+    longitude: -64.2833
   };
   
   const [coords, setCoords] = useState(defaultCoords);
@@ -15,25 +16,28 @@ export const useCoordinates = () => {
 
   const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-  const handlePositionSuccess = (position, source = 'gps/browser') => {
+  const handlePositionSuccess = (position = 'gps/browser') => {
+
     setCoords({
       latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-      accuracy: position.coords.accuracy,
-      source,
+      longitude: position.coords.longitude
     });
     setError(null);
     setLoading(false);
+    
   };
 
   const handlePositionError = (err) => {
+
     console.warn('Location error:', err?.message || 'Unable to retrieve location');
     setError(err?.message || 'Unable to retrieve location');
     setCoords(defaultCoords); // Use default coordinates on error
     setLoading(false);
+
   };
 
   useEffect(() => {
+
     let watchId;
 
     if (!('geolocation' in navigator)) {
@@ -83,12 +87,13 @@ export const useCoordinates = () => {
         navigator.geolocation.clearWatch(watchId);
       }
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // run once on mount
+
+  }, []);
 
   return {
     coords, // Will always have either user location or Santa Rosa coordinates
     error,
     loading,
   };
+  
 };

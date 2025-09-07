@@ -1,7 +1,37 @@
+@use '../../styles/colors.scss' as *;
+@use '../../styles/fonts.scss' as *;
+
 .location {
+
     position: fixed;
-    width: 60dvw;
-    top: 2dvh;
-    left: calc( 50% - 60dvw);
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    background-color: $darkRed700;
     z-index: 2;
+    width: 72.5dvw;
+    height: 38.2px;
+    top: 2dvh;
+    left: 2.5vw;
+    padding: 0px 5dvw;
+    gap: 2.5px;
+    border-radius: 50px;
+
+    * {
+        font-size: 0.8rem;
+        line-height: 0.8rem;
+        color: $white;
+        width: 100%;
+    }
+
+    .main-location {
+        font-weight: bold;
+    }
+
+    .secondary-location {
+        font-weight: normal;
+    }
+
 }
+

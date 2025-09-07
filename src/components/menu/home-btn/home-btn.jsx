@@ -13,7 +13,11 @@ export default function MenuButton({ toggleMenu, menuState }) {
 
   return (
     <>
-      <button className={`menu-button-container ${buttonClass}`} onClick={handleClick} onTouchStart={handleClick}>
+      <button
+        className={`menu-button-container ${buttonClass}`}
+        onClick={handleClick}
+        onTouchStart={handleClick}
+      >
         <MenuIcon className={`menu-button ${buttonClass}`} />
       </button>
     </>
