@@ -6,11 +6,8 @@ import { fetchLocation } from '../../services/indec/endpoints/location';
 
 export const useLocation = ( coords ) => {
 
-    const currentCoords = coords ? coords : {
-        latitude: -36.6167,
-        longitude: -64.2833,
-    };
-
+    const currentCoords = coords;
+    
     const [location, setLocation] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);

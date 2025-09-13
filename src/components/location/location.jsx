@@ -1,14 +1,8 @@
 import './location.scss';
 
-import { useEffect, useState } from 'react';
-
 export default function Location({ location, toggleLocationFilter, locationFilterState }) {
 
-    const [ubicacion, setUbicacion] = useState(location);
-    
-    useEffect(() => {
-        setUbicacion(location);
-    }, [location]);
+    const ubicacion = location;
 
     const handleClick = () => {
         toggleLocationFilter(!locationFilterState);
