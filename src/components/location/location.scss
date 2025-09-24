@@ -5,18 +5,25 @@
 
     position: fixed;
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
+    flex-flow: row nowrap;
+    justify-content: space-between;
     align-items: center;
     background-color: $darkRed700;
     z-index: 3;
-    width: 72.5dvw;
-    height: 38.2px;
+    width: 72.5dvw + 5dvw;
+    height: 38.2px - 5px * 2;
     top: 2dvh;
     left: 2.5vw;
-    padding: 0px 5dvw;
-    gap: 2.5px;
+    padding: 5px 5px 5px 5dvw;
     border-radius: 50px;
+
+    > div {
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        gap: 2.5px;
+    }
 
     * {
         font-size: 0.8rem;
@@ -31,6 +38,21 @@
 
     .secondary-location {
         font-weight: normal;
+    }
+
+    .arrow-down {
+        width: 30px;
+        height: auto;
+        transition: transform 300ms;
+
+        > path {
+            stroke: $white;
+        }
+
+        &.open {
+            transform: rotate(180deg);
+        }
+        
     }
 
 }
