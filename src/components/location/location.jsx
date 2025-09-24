@@ -2,13 +2,13 @@ import './location.scss';
 
 import { useEffect, useState } from 'react';
 
-export default function Location({ location, toggleLocationFilter, locationFilterState }) {
+export default function Location({ ubicacion, toggleLocationFilter, locationFilterState }) {
 
-    const [ubicacion, setUbicacion] = useState(location);
+    const [arrowClass, setArrowClass] = useState('arrow-down');
     
     useEffect(() => {
-        setUbicacion(location);
-    }, [location]);
+        setArrowClass(`arrow-down${locationFilterState ? ' open' : ''}`);
+    }, [locationFilterState]);
 
     const handleClick = () => {
         toggleLocationFilter(!locationFilterState);
