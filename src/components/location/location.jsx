@@ -2,10 +2,17 @@ import './location.scss';
 
 import { useEffect, useState } from 'react';
 
-export default function Location({ ubicacion, toggleLocationFilter, locationFilterState }) {
+import Chevron from '../../assets/svg/chevron-down.svg?react';
 
+export default function Location({ location, toggleLocationFilter, locationFilterState }) {
+
+    const [ubicacion, setUbicacion] = useState(location);    
     const [arrowClass, setArrowClass] = useState('arrow-down');
     
+    useEffect(() => {
+        setUbicacion(location);
+    }, [location]);
+
     useEffect(() => {
         setArrowClass(`arrow-down${locationFilterState ? ' open' : ''}`);
     }, [locationFilterState]);
