@@ -1,7 +1,3 @@
-// MunicipalitiesSelector.jsx
-
-import './municipalities.scss';
-
 import { useMemo } from 'react';
 import { useMunicipalities } from '../../../hooks/location/location-selector/useMunicipalities';
 

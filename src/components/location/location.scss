@@ -10,12 +10,12 @@
     align-items: center;
     background-color: $darkRed700;
     z-index: 3;
-    width: 72.5dvw + 5dvw;
-    height: 38.2px - 5px * 2;
+    width: calc(72.5dvw + 10px);
+    height: calc(38.2px - 5px * 2);
     top: 2dvh;
     left: 2.5vw;
-    padding: 5px 5px 5px 5dvw;
-    border-radius: 50px;
+    padding: 5px 15px 5px 5dvw;
+    border-radius: 20px;
 
     > div {
         display: flex;
@@ -25,7 +25,7 @@
         gap: 2.5px;
     }
 
-    * {
+    > div * {
         font-size: 0.8rem;
         line-height: 0.8rem;
         color: $white;
@@ -41,11 +41,11 @@
     }
 
     .arrow-down {
-        width: 30px;
+        width: 15px;
         height: auto;
         transition: transform 300ms;
 
-        > path {
+        path {
             stroke: $white;
         }
 

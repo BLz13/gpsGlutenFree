@@ -1,7 +1,3 @@
-// CitiesSelector.jsx
-
-import './cities.scss';
-
 import { useCities } from '../../../hooks/location/location-selector/useCities';
 import { useMemo } from 'react';
 

@@ -10,7 +10,7 @@
     align-items: center;
     transition: transform 500ms, opacity 500ms;
     top: calc(4dvh + 38.2px);
-    width: calc(72.5dvw + 5dvw *2);
+    width: calc(72.5dvw + 10px + 15px + 5dvw);
     z-index: 2;
     left: 2.5vw;
     gap: 10px;
@@ -54,6 +54,72 @@
         .backdrop-location-selector {
             pointer-events: auto;
             z-index: 1;
+        }
+
+    }
+
+
+    .location-selector {
+
+        display: grid;
+        align-items: center;
+        justify-content: space-between;
+        justify-items: stretch;
+        row-gap: 10px;
+        grid-template-rows: calc(38.2px - 5px * 2) auto;
+        grid-template-columns: 90% 15px;
+        font-size: 0.8rem;
+        line-height: 0.8rem;
+        width: calc(100% - 15px - 5dvw);
+        height: calc(38.2px - 5px * 2);
+        padding: 5px 15px 5px 5dvw;
+        border-radius: 20px;
+        transition: height 500ms;
+        z-index: 2;
+        color: $white;
+        background-color: $darkRed700;
+
+        &.open {            
+            height: 50dvh;
+        }
+
+        .selected {}
+        
+        .list-options {
+            display: flex;
+            flex-flow: column nowrap;
+            scrollbar-width: thin;
+            height: 100%;
+            scrollbar-color: $white $darkRed700;
+            transition: opacity 300ms;
+            grid-column: span 2;
+            gap: 10px;
+            opacity: 0;
+        }
+        
+        &.open > .list-options {
+            opacity: 1;
+            overflow-y: scroll;
+        }
+
+        .option {}
+
+        .arrow-down {
+
+            grid-row: 1;
+            grid-column: 2;
+            width: 15px;
+            transition: all 300ms;
+            height: auto;
+
+            path {
+                stroke: $white;
+            }
+
+        }
+            
+        &.open > .arrow-down {
+            transform: rotate(180deg);
         }
 
     }
