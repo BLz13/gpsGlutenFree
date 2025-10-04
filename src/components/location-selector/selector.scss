@@ -65,6 +65,7 @@
         align-items: center;
         justify-content: space-between;
         justify-items: stretch;
+        overflow: hidden;
         row-gap: 10px;
         grid-template-rows: calc(38.2px - 5px * 2) auto;
         grid-template-columns: 90% 15px;
@@ -83,7 +84,10 @@
             height: 50dvh;
         }
 
-        .selected {}
+        .selected {
+            font-family: $font-serif;
+            font-size: 0.9rem;
+        }
         
         .list-options {
             display: flex;
@@ -100,9 +104,15 @@
         &.open > .list-options {
             opacity: 1;
             overflow-y: scroll;
+            margin-bottom: 10px;
         }
 
-        .option {}
+        .option {
+            font-family: $font-serif;
+            color: $white;
+            text-align: left;
+            cursor: pointer;
+        }
 
         .arrow-down {
 
@@ -123,7 +133,7 @@
         }
 
     }
-
+/*
     .provinces-selector,
     .municipalities-selector,
     .cities-selector {
@@ -141,13 +151,14 @@
         
     }
 
+*/
     .backdrop-location-selector {
         position: fixed;
         top: 0;
         left: 0;
         width: 100dvw;
         height: 100dvh;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.4);
     }
 
 }
