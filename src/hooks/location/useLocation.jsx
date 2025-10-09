@@ -13,11 +13,7 @@ import { fetchLocation } from '../../services/indec/endpoints/location';
  */
 export const useLocation = (coords) => {
   // Use React state so consumers update when data arrives
-  const [location, setLocation] = useState(() => ({
-    ...coords,
-    province: '',
-    municipality: '',
-  }));
+  const [location, setLocation] = useState(coords);
 
   const [error, setError] = useState(null);
   const fetchedForRef = useRef({ lat: null, long: null });

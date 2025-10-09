@@ -5,14 +5,38 @@ import './municipalities.scss';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import Chevron from '../../../assets/svg/chevron-down.svg?react';
+import { useCurrentLocation } from '../../../hooks/context/useCurrentLocation';
 import { useMunicipalities } from '../../../hooks/location/location-selector/useMunicipalities';
 
-export default function MunicipalitiesSelector({ municipalitySelected, province, onSelect }) {
-  
+export default function MunicipalitiesSelector() {
+
+  // Get location from context (raw location object)
+  const location = useCurrentLocation();
+
+  // Derive province name from location for the municipalities fetch
+  const province = location?.ubicacion?.provincia?.nombre;
+
   const { municipalities, loading } = useMunicipalities(province);
 
   const [open, setOpen] = useState(false);
+
   const containerRef = useRef(null);
+  const userTouchedRef = useRef(false);
+
+  const initialMunicipality = useMemo(() => {
+    const name = location?.ubicacion?.municipio?.nombre;
+    if (name) return name;
+  }, [location]);
+
+  const [selectedMunicipality, setSelectedMunicipality] = useState(initialMunicipality);
+
+  // Sync initial selection from context when location first arrives (but do not overwrite after user touches)
+  useEffect(() => {
+    if (!location) return;
+    if (!userTouchedRef.current) {
+      if (initialMunicipality) setSelectedMunicipality(initialMunicipality);
+    }
+  }, [location, initialMunicipality]);
 
   // Close when clicking/tapping outside (pointerdown)
   useEffect(() => {
@@ -25,7 +49,7 @@ export default function MunicipalitiesSelector({ municipalitySelected, province,
     return () => document.removeEventListener('pointerdown', onDocPointerDown);
   }, [open]);
 
-  const disabled = !province;
+  const disabled = !province
 
   const handlePointerDownToggle = useCallback((e) => {
     if (disabled) return;
@@ -33,29 +57,23 @@ export default function MunicipalitiesSelector({ municipalitySelected, province,
     setOpen(prev => !prev);
   }, [disabled]);
 
-  const handleMunicipalitySelect = useCallback((municipalityId, e) => {
-    e.stopPropagation(); // important: prevent container toggle from also firing
-    onSelect(municipalityId);
+  const handleMunicipalitySelect = useCallback((municipalityIdOrName, e) => {
+    e.stopPropagation();
+    userTouchedRef.current = true;
+    setSelectedMunicipality(String(municipalityIdOrName));
     setOpen(false);
-  }, [onSelect]);
+  }, []);
 
+  // Compute selectValue normalized to an id string when possible, else use name string
   const selectValue = useMemo(() => {
-    if (!municipalities || municipalities.length === 0) return municipalitySelected ?? '';
-    if (municipalitySelected == null || municipalitySelected === '') return '';
-
-    const byId = municipalities.find(m => String(m.id) === String(municipalitySelected));
-    if (byId) return String(byId.id);
-
-    const byName = municipalities.find(m => String(m.name).toLowerCase() === String(municipalitySelected).toLowerCase());
-    if (byName) return String(byName.id);
-
-    return '';
-  }, [municipalities, municipalitySelected]);
+    if (!municipalities || municipalities.length === 0) return selectedMunicipality ?? '';
+    return String(selectedMunicipality);
+  }, [municipalities, selectedMunicipality]);
 
   const municipalitiesList = useMemo(() => {
     if (!municipalities || municipalities.length === 0) return null;
     return municipalities
-      .filter(m => String(m.id) !== selectValue)
+      .filter( m => String(m.id) !== selectValue )
       .map(municipality => (
         <button
           key={municipality.id}
@@ -70,22 +88,14 @@ export default function MunicipalitiesSelector({ municipalitySelected, province,
       ));
   }, [municipalities, selectValue, handleMunicipalitySelect]);
 
-  const selectedMunicipality = useMemo(() => {
-    return municipalities?.find(m => String(m.id) === selectValue)?.name ?? null;
-  }, [municipalities, selectValue]);
-
-  const handleKeyDown = useCallback((e) => {
-    if (disabled) return;
-    if (e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      setOpen(prev => !prev);
-    } else if (e.key === 'Escape') {
-      setOpen(false);
-    }
-  }, [disabled]);
+  const selectedMunicipalityName = useMemo(() => {
+    const muni = municipalities?.find(m => String(m.name).toLowerCase() === String(selectValue).toLowerCase());
+    if (muni) return muni;
+    return (selectedMunicipality && String(selectedMunicipality)) || null;
+  }, [municipalities, selectValue, selectedMunicipality]);
 
   if (loading) {
-    return <div className='municipalities-selector'>Cargando municipios...</div>;
+    return <div className='location-selector'>Cargando municipios...</div>;
   }
 
   return (
@@ -93,13 +103,11 @@ export default function MunicipalitiesSelector({ municipalitySelected, province,
       ref={containerRef}
       className={`location-selector ${open ? 'open' : ''} ${disabled ? 'disabled' : ''}`}
       onPointerDown={handlePointerDownToggle}
-      onKeyDown={handleKeyDown}
       role="combobox"
       aria-expanded={open}
       aria-haspopup="listbox"
-      tabIndex={disabled ? -1 : 0}
     >
-      <span className='selected'>{selectedMunicipality || 'Seleccionar municipio'}</span>
+      <span className='selected'>{selectedMunicipalityName}</span>
 
       <div className='list-options' role="listbox" aria-activedescendant={selectValue || undefined}>
         {municipalitiesList}
