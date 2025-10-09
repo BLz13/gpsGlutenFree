@@ -3,40 +3,47 @@ import './location.scss';
 import { useEffect, useState } from 'react';
 
 import Chevron from '../../assets/svg/chevron-down.svg?react';
+import { useCurrentLocation } from '../../hooks/context/useCurrentLocation';
 
-export default function Location({ location, toggleLocationFilter, locationFilterState }) {
+export default function Location({ toggleLocationFilter, locationFilterState }) {
 
-    const [ubicacion, setUbicacion] = useState(location);    
+    const location = useCurrentLocation();
+
     const [arrowClass, setArrowClass] = useState('arrow-down');
-    
-    useEffect(() => {
-        setUbicacion(location);
-    }, [location]);
+
+    const [locationRenderObject, setLocationRenderObject] = useState(<div></div>);
 
     useEffect(() => {
         setArrowClass(`arrow-down${locationFilterState ? ' open' : ''}`);
     }, [locationFilterState]);
 
+    useEffect(() => {
+        setLocationRenderObject( !location ? (
+                <h2 className='main-location'>Argentina</h2>
+            ) : (
+                <div>
+                    <h2 className='main-location'>
+                        {`${location?.departamento?.nombre}`}
+                    </h2>
+                    <h3 className='secondary-location'>
+                        {`${location?.municipio?.nombre}, ${location?.provincia?.nombre}`}
+                    </h3>
+                </div>
+            )
+        );
+    }, [location]);
+
     const handleClick = () => {
         toggleLocationFilter(!locationFilterState);
     };
 
+    
+
     return (
         <div className="location" onClick={handleClick} onTouchEnd={handleClick}>
-            {!ubicacion ? (
-                <div>
-                    <h2 className='main-location'>Argentina</h2>
-                </div>
-            ) : (
-                <div>
-                    <h2 className='main-location'>
-                        {`${ubicacion.departamento.nombre}`}
-                    </h2>
-                    <h3 className='secondary-location'>
-                        {`${ubicacion.municipio.nombre}, ${ubicacion.provincia.nombre}`}
-                    </h3>
-                </div>
-            )}
+            <div>
+                {locationRenderObject}
+            </div>
             <Chevron className={arrowClass} />
         </div>
     );

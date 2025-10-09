@@ -1,12 +1,10 @@
 import { INDEC_API_ADDRESS as apiAdrs } from '../api';
 
-export const fetchLocation = async ({ latitude, longitude }) => {
-
-  console.log('Fetching location for coords:', { latitude, longitude });
+export const fetchLocation = async ({ lat, long }) => {
 
   try {
 
-    const response = await fetch(`${apiAdrs}ubicacion?lat=${latitude}&lon=${longitude}`);
+    const response = await fetch(`${apiAdrs}ubicacion?lat=${lat}&lon=${long}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

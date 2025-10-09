@@ -1,101 +1,86 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useRef, useState } from 'react';
 
-import { useEffect, useState } from 'react';
+/**
+ * useCoordinates (single estimate only, no loading)
+ * - Performs ONE getCurrentPosition on mount (no watch, no retries).
+ * - Requests a low-cost estimate (enableHighAccuracy: false) and allows cached results.
+ * - Returns: { coords, error }
+ *
+ * coords shape:
+ * { lat, long, default }  // default === true when using built-in fallback coords
+ */
 
 export const useCoordinates = () => {
-  
-  // Default coordinates for Santa Rosa, La Pampa
-  const defaultCoords = {
-    latitude: -36.6167,
-    longitude: -64.2833
-  };
-  
-  const [coords, setCoords] = useState(defaultCoords);
+
+  // sensible default (Santa Rosa, La Pampa)
+  const DEFAULT = { lat: -36.6167, long: -64.2833 };
+
+  const [coords, setCoords] = useState({
+    lat: DEFAULT.lat,
+    long: DEFAULT.long,
+    default: true,
+  });
+
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-  const handlePositionSuccess = (position = 'gps/browser') => {
-
-    setCoords({
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude
-    });
-    setError(null);
-    setLoading(false);
-    
-  };
-
-  const handlePositionError = (err) => {
-
-    console.warn('Location error:', err?.message || 'Unable to retrieve location');
-    setError(err?.message || 'Unable to retrieve location');
-    setCoords(defaultCoords); // Use default coordinates on error
-    setLoading(false);
-
-  };
+  const mountedRef = useRef(true);
 
   useEffect(() => {
 
-    let watchId;
+    mountedRef.current = true;
 
     if (!('geolocation' in navigator)) {
-      setError("Geolocation is not supported by your browser");
-      setCoords(defaultCoords);
-      setLoading(false);
-      return;
+      if (mountedRef.current) {
+        setError('Geolocation is not supported by your browser');
+      }
+      return () => { mountedRef.current = false; };
     }
 
-    // Options: request GPS first (high accuracy), with sensible fallback
-    const options = {
-      enableHighAccuracy: true, // <– Always request best accuracy (forces GPS on mobile if available)
-      timeout: 15000,           // 15s before failing
+    // Low-cost options: prefer a fast, coarse estimate or a cached one.
+    const options = {      
+      enableHighAccuracy: false, // coarse, quicker, lower battery cost
+      timeout: 10000,             // 10s timeout
+      maximumAge: 1000 * 60 * 10 // accept cached positions up to 10 minutes old
     };
 
-    // First try to get the most precise position available
-    navigator.geolocation.getCurrentPosition(
+    const success = (position) => {
 
-      (pos) => handlePositionSuccess(pos, isMobile ? 'gps' : 'browser'),
+      if (!mountedRef.current) return;
 
-      (err) => {
-        console.warn("High-accuracy getCurrentPosition failed, retrying with low-accuracy", err);
+      const lat = Number(position.coords.latitude);
+      const long = Number(position.coords.longitude);
 
-        // Retry without high accuracy as a fallback
-        navigator.geolocation.getCurrentPosition(
-          (pos) => handlePositionSuccess(pos, 'fallback'),
-          handlePositionError,
-          { enableHighAccuracy: false, timeout: 10000, maximumAge: 60000 }
-        );
-      },
+      setCoords({
+        lat,
+        long,
+        default: false,
+      });
+      setError(null);
 
-      options
+    };
 
-    );
+    const failure = (err) => {
 
-    // On mobile, keep tracking since people move
-    if (isMobile) {
-      watchId = navigator.geolocation.watchPosition(
-        (pos) => handlePositionSuccess(pos, 'gps'),
-        handlePositionError,
-        options
-      );
+      if (!mountedRef.current) return;
+      console.warn('Geolocation error:', err?.message || err);
+      setError(err?.message || 'Unable to retrieve location');
+      // keep default coords in place
+
+    };
+
+    try {
+      navigator.geolocation.getCurrentPosition(success, failure, options);
+    } catch (e) {
+      failure(e);
     }
 
     return () => {
-      if (watchId) {
-        navigator.geolocation.clearWatch(watchId);
-      }
+      mountedRef.current = false;
     };
 
   }, []);
 
-  console.log('useCoordinates hook - coords:', coords);
-
   return {
-    coords, // Will always have either user location or Santa Rosa coordinates
+    coords, // { lat, long, default }
     error,
-    loading,
   };
-  
 };
