@@ -4,9 +4,9 @@ import './municipalities.scss';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import Chevron from '../../../assets/svg/chevron-down.svg?react';
-import { useCurrentLocation } from '../../../hooks/context/useCurrentLocation';
-import { useMunicipalities } from '../../../hooks/location/location-selector/useMunicipalities';
+import Chevron from '../../../../../assets/svg/chevron-down.svg?react';
+import { useCurrentLocation } from '../../../../../hooks/context/useCurrentLocation';
+import { useMunicipalities } from '../../../../../hooks/location/location-selector/useMunicipalities';
 
 export default function MunicipalitiesSelector() {
 

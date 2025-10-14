@@ -1,33 +1,22 @@
 import "./menu-cnt.scss";
 
-import MenuButton from './home-btn/home-btn';
 import MenuItems from "./menu-items/menu-items";
-import { useState } from 'react';
+import { useUIState } from "../../hooks/context/useUIState";
 
-export default function Menu({ closeLocationFilter }) {
-
-  const [menuState, setMenu] = useState(false);
-
-  const toggleMenu = () => {
-    setMenu(prevState => !prevState);
-  };
+export default function Menu() {
+   
+  const uiStates = useUIState();
 
   const closeMenu = () => {
-    setMenu(false);
+    uiStates.menuState = false;
   };
 
-  const menuClass = menuState ? "open" : "closed";
+  const menuClass = uiStates.menuState ? "open" : "closed";
 
   return (
     <>
 
       <nav className={`menu-container ${menuClass}`}>
-
-        <MenuButton
-          toggleMenu={toggleMenu}
-          menuState={menuState}
-          closeLocationFilter={closeLocationFilter}
-        />
 
         <ul className={`menu ${menuClass}`}>
           <MenuItems />

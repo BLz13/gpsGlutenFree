@@ -2,21 +2,22 @@ import './location.scss';
 
 import { useEffect, useState } from 'react';
 
-import Chevron from '../../assets/svg/chevron-down.svg?react';
-import { useCurrentLocation } from '../../hooks/context/useCurrentLocation';
+import Chevron from '../../../assets/svg/chevron-down.svg?react';
+import LocationSelectors from './location-selector/selectors';
+import { useCurrentLocation } from '../../../hooks/context/useCurrentLocation';
 
-export default function Location({ toggleLocationFilter, locationFilterState }) {
+export default function Location() {
 
     const location = useCurrentLocation();
 
     const [arrowClass, setArrowClass] = useState('arrow-down');
 
     const [locationRenderObject, setLocationRenderObject] = useState(<div></div>);
-
+/*
     useEffect(() => {
         setArrowClass(`arrow-down${locationFilterState ? ' open' : ''}`);
     }, [locationFilterState]);
-
+*/
     useEffect(() => {
         setLocationRenderObject( !location ? (
                 <h2 className='main-location'>Argentina</h2>
@@ -40,11 +41,17 @@ export default function Location({ toggleLocationFilter, locationFilterState }) 
     
 
     return (
-        <div className="location" onClick={handleClick} onTouchEnd={handleClick}>
-            <div>
-                {locationRenderObject}
+        <div>
+
+            <div className="location" onClick={handleClick} onTouchEnd={handleClick}>
+                <div>
+                    {locationRenderObject}
+                </div>
+                <Chevron className={arrowClass} />
             </div>
-            <Chevron className={arrowClass} />
+
+            <LocationSelectors />
+            
         </div>
     );
 }

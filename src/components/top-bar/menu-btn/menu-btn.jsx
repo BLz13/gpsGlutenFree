@@ -1,4 +1,4 @@
-import './home-btn.scss';
+import './menu-btn.scss';
 
 import MenuIcon from '../../../assets/svg/menuIcon.svg?react';
 
