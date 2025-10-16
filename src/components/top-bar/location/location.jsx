@@ -3,23 +3,25 @@ import './location.scss';
 import { useEffect, useState } from 'react';
 
 import Chevron from '../../../assets/svg/chevron-down.svg?react';
-import LocationSelectors from './location-selector/selectors';
 import { useCurrentLocation } from '../../../hooks/context/useCurrentLocation';
+import { useUIState } from '../../../hooks/context/useUIState';
 
 export default function Location() {
 
     const location = useCurrentLocation();
 
+    const { locationState, toggleLocation } = useUIState();    
+
     const [arrowClass, setArrowClass] = useState('arrow-down');
 
     const [locationRenderObject, setLocationRenderObject] = useState(<div></div>);
-/*
+
     useEffect(() => {
-        setArrowClass(`arrow-down${locationFilterState ? ' open' : ''}`);
-    }, [locationFilterState]);
-*/
+        setArrowClass(`arrow-down${locationState ? ' open' : ''}`);
+    }, [locationState]);
+
     useEffect(() => {
-        setLocationRenderObject( !location ? (
+        setLocationRenderObject( location.departamento === undefined ? (
                 <h2 className='main-location'>Argentina</h2>
             ) : (
                 <div>
@@ -34,24 +36,18 @@ export default function Location() {
         );
     }, [location]);
 
-    const handleClick = () => {
-        toggleLocationFilter(!locationFilterState);
+    const handleLocationAction = () => {
+        toggleLocation();
     };
 
     
 
     return (
-        <div>
-
-            <div className="location" onClick={handleClick} onTouchEnd={handleClick}>
-                <div>
-                    {locationRenderObject}
-                </div>
-                <Chevron className={arrowClass} />
+        <div className="location" onClick={handleLocationAction} onTouchEnd={handleLocationAction}>
+            <div>
+                {locationRenderObject}
             </div>
-
-            <LocationSelectors />
-            
+            <Chevron className={arrowClass} />
         </div>
     );
 }

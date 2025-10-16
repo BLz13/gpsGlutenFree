@@ -4,8 +4,8 @@ import './cities.scss';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import Chevron from '../../../../../assets/svg//chevron-down.svg?react';
-import { useCities } from '../../../../../hooks/location/location-selector/useCities';
+import Chevron from '../../../../assets/svg//chevron-down.svg?react';
+import { useCities } from '../../../../hooks/location/location-selector/useCities';
 
 export default function CitiesSelector({ citySelected, municipality, onSelect }) {
     

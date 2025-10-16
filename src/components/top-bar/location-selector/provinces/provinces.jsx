@@ -4,9 +4,9 @@ import './provinces.scss';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import Chevron from '../../../../../assets/svg/chevron-down.svg?react';
-import { useCurrentLocation } from '../../../../../hooks/context/useCurrentLocation';
-import { useProvinces } from '../../../../../hooks/location/location-selector/useProvinces';
+import Chevron from '../../../../assets/svg/chevron-down.svg?react';
+import { useCurrentLocation } from '../../../../hooks/context/useCurrentLocation';
+import { useProvinces } from '../../../../hooks/location/location-selector/useProvinces';
 
 export default function ProvincesSelector() {
 
