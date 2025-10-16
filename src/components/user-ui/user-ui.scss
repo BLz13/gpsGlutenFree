@@ -1,0 +1,19 @@
+.user-ui {
+    
+    height: 99.99dvh;
+    width: 99.99vw;
+    z-index: 2;
+    position: fixed;
+    overflow: hidden;
+
+    header {
+        position: absolute;
+        display: grid;
+        top: 2dvh;
+        padding: 0 5vw;
+        gap: 2.5vw;
+        width: calc(99.99vw - 10vw);
+        grid-template-columns: 9fr 1fr;
+    }
+
+}

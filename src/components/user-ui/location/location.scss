@@ -3,17 +3,14 @@
 
 .location {
 
-    position: fixed;
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
     background-color: $darkRed700;
-    z-index: 3;
-    width: calc(72.5dvw + 10px);
-    height: calc(38.2px - 5px * 2);
-    top: 2dvh;
-    left: 2.5vw;
     padding: 5px 15px 5px 5dvw;
     border-radius: 20px;
 

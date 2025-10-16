@@ -14,7 +14,7 @@ export default function Location() {
 
     const [arrowClass, setArrowClass] = useState('arrow-down');
 
-    const [locationRenderObject, setLocationRenderObject] = useState(<div></div>);
+    const [locationRenderObject, setLocationRenderObject] = useState(<></>);
 
     useEffect(() => {
         setArrowClass(`arrow-down${locationState ? ' open' : ''}`);
@@ -43,10 +43,8 @@ export default function Location() {
     
 
     return (
-        <div className="location" onClick={handleLocationAction} onTouchEnd={handleLocationAction}>
-            <div>
-                {locationRenderObject}
-            </div>
+        <div className="location"  onPointerDown={handleLocationAction}>
+            {locationRenderObject}
             <Chevron className={arrowClass} />
         </div>
     );

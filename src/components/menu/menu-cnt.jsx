@@ -5,13 +5,13 @@ import { useUIState } from "../../hooks/context/useUIState";
 
 export default function Menu() {
    
-  const uiStates = useUIState();
+  const { menuState, closeMenu } = useUIState();
 
-  const closeMenu = () => {
-    uiStates.menuState = false;
+  const handleBackdropAction = () => {
+    closeMenu();
   };
 
-  const menuClass = uiStates.menuState ? "open" : "closed";
+  const menuClass = menuState ? "open" : "closed";
 
   return (
     <>
@@ -22,7 +22,7 @@ export default function Menu() {
           <MenuItems />
         </ul>
 
-        <div  onClick={closeMenu} onTouchEnd={closeMenu} className="menu-backdrop"></div>
+        <div onPointerDown={handleBackdropAction} className="menu-backdrop"></div>
 
       </nav>
 

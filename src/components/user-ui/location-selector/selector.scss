@@ -3,16 +3,15 @@
 
 .location-selector-cnt {
 
-    position: fixed;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     transition: transform 500ms, opacity 500ms;
-    top: calc(4dvh + 38.2px);
-    width: calc(72.5dvw + 10px + 15px + 5dvw);
+    grid-row: 2;
+    grid-column: span 2;
+    width: 100%;
     z-index: 2;
-    left: 2.5vw;
     gap: 10px;
 
     &.closed{
